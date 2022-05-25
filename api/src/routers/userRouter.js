@@ -31,13 +31,15 @@ router.post("/", async (req, res) => {
         });
   } catch (error) {
     let message = error.message;
-    if (error.message.includes("duplicate key error collection"))
+    if (error.message.includes("duplicate key error collection")) {
       message = "User already exist with this email";
+    }
+
+    res.json({
+      status: "error",
+      message: error.message,
+    });
   }
-  res.json({
-    status: "error",
-    message: error.message,
-  });
 });
 
 // login user

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { postSignUp } from "../helper/axiosHelper";
 
 const initialState = {
   name: "",
@@ -19,8 +20,10 @@ export const SignUp = () => {
     });
   };
   // console.log(frmData);
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
+    const result = await postSignUp(frmData);
+    console.log(result);
   };
   return (
     <div>
