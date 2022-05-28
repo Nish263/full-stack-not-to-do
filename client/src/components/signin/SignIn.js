@@ -1,9 +1,11 @@
 import React, { useRef } from "react";
 import { Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { postSignIn } from "../helper/axiosHelper";
 
 export const SignIn = () => {
+  const navigate = useNavigate();
+  // const [error, setError] = useState("");
   const emailRef = useRef("");
   const passwordRef = useRef("");
 
@@ -15,12 +17,16 @@ export const SignIn = () => {
       return alert("Please enter email and passsword");
     }
     const { data } = await postSignIn({ email, password });
-    console.log(data);
+    // console.log(data);
 
     if (data.status === "success") {
       const { name, email, _id } = data.user;
       sessionStorage.setItem("userList", JSON.stringify({ name, email, _id }));
+      // setError("");
+      navigate("/dashboard");
+      return;
     }
+    // setError(data.message);
   };
   return (
     <div>
