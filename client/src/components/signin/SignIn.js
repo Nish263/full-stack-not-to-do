@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { postSignIn } from "../helper/axiosHelper";
 
 export const SignIn = () => {
+  const emailRef = useRef("");
+  const passwordRef = useRef("");
+
+  const handleOnSubmit = async (e) => {
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    if (!email || !password) {
+      return alert("Please enter email and passsword");
+    }
+    const { data } = await postSignIn({ email, password });
+    console.log(data);
+
+    if (data.status === "success") {
+      const { name, email, _id } = data.user;
+      sessionStorage.setItem("userList", JSON.stringify({ name, email, _id }));
+    }
+  };
   return (
     <div>
       <div className="login-comp">
@@ -10,19 +30,27 @@ export const SignIn = () => {
           <hr />
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
+            <Form.Control
+              ref={emailRef}
+              type="email"
+              placeholder="Enter email"
+            />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+            <Form.Control
+              ref={passwordRef}
+              type="password"
+              placeholder="Password"
+            />
           </Form.Group>
 
-          <Button variant="warning" type="submit">
+          <Button variant="warning" onClick={handleOnSubmit}>
             Sign in
           </Button>
           <div className="text-end">
-            Not a member ? <a href="/register">Sign Up</a>
+            Not a member ? <Link to="/register">Sign Up</Link>
           </div>
         </Form>
       </div>

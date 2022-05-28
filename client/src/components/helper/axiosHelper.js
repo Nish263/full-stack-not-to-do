@@ -2,15 +2,32 @@ import axios from "axios";
 
 const rootURL = "http://localhost:8000/api/v1";
 const userApi = rootURL + "/users";
+const SigninApi = rootURL + "/users/login";
 
-export const postSignUp = async (frmData) => {
+export const postSignUp = (frmData) => {
   try {
-    const { data } = await axios.post(userApi, frmData);
-    console.log(data);
+    return axios.post(userApi, frmData);
   } catch (error) {
-    return {
+    const data = {
       status: "error",
       message: error.message,
+    };
+    return {
+      data,
+    };
+  }
+};
+
+export const postSignIn = (frmData) => {
+  try {
+    return axios.post(SigninApi, frmData);
+  } catch (error) {
+    const data = {
+      status: "error",
+      message: error.message,
+    };
+    return {
+      data,
     };
   }
 };
