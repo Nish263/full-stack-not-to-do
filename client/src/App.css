@@ -14,3 +14,7 @@
   margin-top: 3rem;
   width: 500px;
 }
+.form-box form {
+  background-color: rgb(251, 242, 188);
+  padding: 1rem;
+}
