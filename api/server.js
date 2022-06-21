@@ -16,8 +16,11 @@ app.use(morgan("tiny"));
 
 // api
 import userRouter from "./src/routers/userRouter.js";
+import taskRouter from "./src/routers/taskRouter.js";
 
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/task", taskRouter);
+
 app.get("*", (req, res) => {
   res.status(404).send("<h1> welcome to full stack not to do app <h1>");
 });
