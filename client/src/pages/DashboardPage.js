@@ -1,16 +1,19 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
 import { MainLayout } from "../components/layout/MainLayout";
 import { useNavigate } from "react-router-dom";
-
 import { Title } from "../components/Title";
-// import { TotalHours } from "../components/TotalHour";
 import { FormList } from "../components/formList/FormList";
 import { TaskList } from "../components/taskList/TaskList";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Spinner, Alert } from "react-bootstrap";
+import { postTask } from "../components/helper/axiosHelper";
 
 export const DashboardPage = () => {
   const navigate = useNavigate();
+  const [resp, setRes] = useState({
+    status: "",
+    message: "",
+  });
+  const [isloading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("userList"));
@@ -19,8 +22,11 @@ export const DashboardPage = () => {
     }
   }, [navigate]);
 
-  const handleOnPost = (newTask) => {
-    console.log("submit", newTask);
+  const handleOnPost = async (newTask) => {
+    setIsLoading(true);
+    const { data } = await postTask(newTask);
+    setIsLoading(false);
+    setRes(data);
     // call the api
   };
   return (
@@ -28,6 +34,16 @@ export const DashboardPage = () => {
       <Row>
         <Title />
         <hr />
+        <Row>
+          <Col className="text-center">
+            {isloading && <Spinner animation="border" variant="primary" />}
+            {resp?.message && (
+              <Alert variant={resp.status === "success" ? "success" : "danger"}>
+                {resp?.message}{" "}
+              </Alert>
+            )}
+          </Col>
+        </Row>
 
         <FormList handleOnPost={handleOnPost} />
         <Row className="g-5">
