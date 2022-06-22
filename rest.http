@@ -36,9 +36,14 @@ GET http://localhost:8000/api/v1/task
 ###
 POST http://localhost:8000/api/v1/task
 Content-Type: application/json
+Authorization: 62b19aba45c4f3a9de279ed7
 
 {
-    "user_id":""
-    "task":"",
-    "hr":"",
+    
+    "task":"cycling",
+    "hr":25
 }
+
+
+### delete 
+DELETE http://localhost:8000/api/v1/task

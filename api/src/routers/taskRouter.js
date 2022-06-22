@@ -1,5 +1,5 @@
 import express from "express";
-import { getTasks, insertTask, deleteTask } from "../models/task/task.model.js";
+import { getTasks, createTask, deleteTask } from "../models/task/task.model.js";
 
 const router = express.Router();
 
@@ -13,12 +13,17 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const result = await insertTask(req.body);
-    console.log(result);
-    res.json({
-      status: "success",
-      message: "your new task has been added succesfully",
-    });
+    const { authorization } = req.headers;
+    const result = await createTask({ ...req.body, user_id: authorization });
+    result?._id
+      ? res.json({
+          status: "success",
+          message: "New task created succesfully",
+        })
+      : res.json({
+          status: "error",
+          message: "Error creating task,please try again later",
+        });
   } catch (error) {
     res.json({
       status: "error",
