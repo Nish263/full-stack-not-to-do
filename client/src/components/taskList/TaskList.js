@@ -4,8 +4,7 @@ export const TaskList = ({
   taskList,
   handleOnDeletetaskList,
   markAsNotToDo,
-}) => {
-  console.log(taskList);
+}) 
   return (
     <div className="col-md-6 mb-5">
       <h2 className="text-center"> Task list</h2>

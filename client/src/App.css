@@ -18,3 +18,12 @@
   background-color: rgb(251, 242, 188);
   padding: 1rem;
 }
+
+.form-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(251, 242, 188);
+  margin-top: 1.5rem;
+  border-radius: 15px;
+}

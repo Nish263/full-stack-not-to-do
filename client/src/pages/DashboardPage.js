@@ -3,9 +3,9 @@ import React, { useEffect } from "react";
 import { MainLayout } from "../components/layout/MainLayout";
 import { useNavigate } from "react-router-dom";
 
-// import { Title } from "../components/Title";
+import { Title } from "../components/Title";
 // import { TotalHours } from "../components/TotalHour";
-// import { Form } from "../components/formList/Form";
+import { FormList } from "../components/formList/FormList";
 // import { TaskList } from "../components/taskList/TaskList";
 // import { BadList } from "../components/badList/BadList";
 
@@ -26,7 +26,9 @@ export const DashboardPage = () => {
       <TaskList />
       <BadList />
       <TotalHours /> */}
-      <h1>dashboard</h1>
+      <Title />
+      <hr />
+      <FormList />
     </MainLayout>
   );
 };
