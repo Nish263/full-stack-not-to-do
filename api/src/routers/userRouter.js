@@ -1,5 +1,10 @@
 import express from "express";
-import { getUser, insertUser, findUser } from "../models/user/user.model.js";
+import {
+  getUser,
+  insertUser,
+  getAUserByID,
+  findUser,
+} from "../models/user/user.model.js";
 const router = express.Router();
 
 // router.all("/", (req, res, next) => {
@@ -9,10 +14,20 @@ const router = express.Router();
 
 // get user
 
-router.get("/", (req, res) => {
-  res.send({
-    message: "get user",
-  });
+router.get("/", async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const result = _id ? await getAUserByID(_id) : await getUser();
+    res.json({
+      status: "success",
+      result,
+    });
+  } catch (error) {
+    res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
 });
 
 // register user
@@ -34,11 +49,6 @@ router.post("/", async (req, res) => {
     if (error.message.includes("duplicate key error collection")) {
       message = "User already exist with this email";
     }
-
-    res.json({
-      status: "error",
-      message: error.message,
-    });
   }
 });
 

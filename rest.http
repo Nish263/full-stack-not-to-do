@@ -11,8 +11,8 @@ POST http://localhost:8000/api/v1/users
 Content-Type: application/json
 
 {
- "name":"jess",
- "email":"jess123@gmail.com",
+ "name":"nisha",
+ "email":"nisha123@gmail.com",
  "password": "12345"
 }
 
@@ -22,8 +22,23 @@ Content-Type: application/json
 
 {
  
- "email":"jess@gmail.com",
+ "email":"nisha123@gmail.com",
  "password": "12345"
 }
 
 ###task api
+
+### get task
+
+GET http://localhost:8000/api/v1/task
+
+
+###
+POST http://localhost:8000/api/v1/task
+Content-Type: application/json
+
+{
+    "user_id":""
+    "task":"",
+    "hr":"",
+}

@@ -1,13 +1,12 @@
 import express from "express";
-import { getTask, insertTask, deleteTask } from "../models/task/task.model.js";
+import { getTasks, insertTask, deleteTask } from "../models/task/task.model.js";
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const result = await getTask();
+  const result = await getTasks();
   res.json({
     status: "success",
-    message: "you made a get call",
     result,
   });
 });

@@ -1,13 +1,13 @@
-import TaskListSchema from "./task.schema.js";
+import TaskSchema from "./task.schema.js";
 
 export const insertTask = (obj) => {
-  return TaskListSchema(obj).save();
+  return TaskSchema(obj).save();
 };
 
 export const getTasks = () => {
-  return TaskListSchema.find();
+  return TaskSchema.find();
 };
 
 export const deleteTask = (_id) => {
-  return TaskListSchema.findByIdAndDelete(_id);
+  return TaskSchema.findByIdAndDelete(_id);
 };

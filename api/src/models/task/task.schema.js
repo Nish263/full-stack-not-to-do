@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const TaskListSchema = new mongoose.Schema({
+const TaskSchema = new mongoose.Schema({
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -19,4 +19,4 @@ const TaskListSchema = new mongoose.Schema({
     required: true,
   },
 });
-export default mongoose.model("TaskList", TaskListSchema);
+export default mongoose.model("TaskList", TaskSchema);
