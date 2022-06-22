@@ -18,13 +18,18 @@ export const DashboardPage = () => {
       navigate("/");
     }
   }, [navigate]);
+
+  const handleOnPost = (newTask) => {
+    console.log("submit", newTask);
+    // call the api
+  };
   return (
     <MainLayout>
       <Row>
         <Title />
         <hr />
 
-        <FormList />
+        <FormList handleOnPost={handleOnPost} />
         <Row className="g-5">
           <Col md="6">
             <TaskList />

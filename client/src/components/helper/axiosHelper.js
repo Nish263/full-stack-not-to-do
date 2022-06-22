@@ -3,6 +3,7 @@ import axios from "axios";
 const rootURL = "http://localhost:8000/api/v1";
 const userApi = rootURL + "/users";
 const SigninApi = rootURL + "/users/login";
+const taskApi = rootURL + "/task";
 
 export const postSignUp = (frmData) => {
   try {
@@ -28,6 +29,21 @@ export const postSignIn = (frmData) => {
     };
     return {
       data,
+    };
+  }
+};
+
+export const postTask = async (frmData) => {
+  try {
+    const { data } = await axios.post(taskApi, frmData);
+    return data;
+  } catch (error) {
+    console.log("error");
+    return {
+      data: {
+        status: "error",
+        message: error.message,
+      },
     };
   }
 };
