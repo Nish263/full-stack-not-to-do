@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { Title } from "../components/Title";
 // import { TotalHours } from "../components/TotalHour";
 import { FormList } from "../components/formList/FormList";
-// import { TaskList } from "../components/taskList/TaskList";
-// import { BadList } from "../components/badList/BadList";
+import { TaskList } from "../components/taskList/TaskList";
+import { Col, Row } from "react-bootstrap";
 
 export const DashboardPage = () => {
   const navigate = useNavigate();
@@ -20,15 +20,20 @@ export const DashboardPage = () => {
   }, [navigate]);
   return (
     <MainLayout>
-      {/* <Title />
-      <hr />
-      <Form />
-      <TaskList />
-      <BadList />
-      <TotalHours /> */}
-      <Title />
-      <hr />
-      <FormList />
+      <Row>
+        <Title />
+        <hr />
+
+        <FormList />
+        <Row className="g-5">
+          <Col md="6">
+            <TaskList />
+          </Col>
+          <Col md="6">
+            <TaskList />
+          </Col>
+        </Row>
+      </Row>
     </MainLayout>
   );
 };
