@@ -24,7 +24,8 @@ export const DashboardPage = () => {
 
   const handleOnPost = async (newTask) => {
     setIsLoading(true);
-    const { data } = await postTask(newTask);
+    const data = await postTask(newTask);
+    console.log(data);
     setIsLoading(false);
     setRes(data);
     // call the api

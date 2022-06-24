@@ -36,11 +36,12 @@ export const postSignIn = (frmData) => {
 export const postTask = async (frmData) => {
   try {
     const user = JSON.parse(sessionStorage.getItem("userList"));
-    return await axios.post(taskApi, frmData, {
+    const { data } = await axios.post(taskApi, frmData, {
       headers: {
         authorization: user._id,
       },
     });
+    return data;
   } catch (error) {
     console.log("error");
     return {
