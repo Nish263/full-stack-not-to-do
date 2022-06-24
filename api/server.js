@@ -9,6 +9,7 @@ dbCon();
 // setup middleware
 import cors from "cors";
 import morgan from "morgan";
+import { userAuth } from "./src/middleware/authmiddleware.js";
 
 app.use(express.json());
 app.use(cors());
@@ -19,10 +20,10 @@ import userRouter from "./src/routers/userRouter.js";
 import taskRouter from "./src/routers/taskRouter.js";
 
 app.use("/api/v1/users", userRouter);
-app.use("/api/v1/task", taskRouter);
+app.use("/api/v1/task", userAuth, taskRouter);
 
 app.get("*", (req, res) => {
-  res.status(404).send("<h1> welcome to full stack not to do app <h1>");
+  res.status(404).send("<h1> welcome to full stack not  to do app <h1>");
 });
 
 app.listen(PORT, (error) => {
