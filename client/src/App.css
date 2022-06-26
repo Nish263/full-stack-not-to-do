@@ -28,7 +28,15 @@
   border-radius: 15px;
 }
 
-.table-striped > tbody > tr:nth-child(odd) > td,
-.table-striped > tbody > tr:nth-child(odd) > th {
+.table-striped > tbody > tr:nth-child(even) > td,
+.table-striped > tbody > tr:nth-child(even) > th {
   background-color: rgb(251, 242, 188);
+}
+
+.thead {
+  background-color: rgb(252, 219, 75);
+}
+
+button {
+  justify-content: space-around;
 }

@@ -4,11 +4,22 @@ import { getTasks, createTask, deleteTask } from "../models/task/task.model.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const result = await getTasks();
-  res.json({
-    status: "success",
-    result,
-  });
+  try {
+    const { authorization } = req.headers;
+
+    // get all task of user_id authorization
+
+    const tasks = await getTasks({ user_id: authorization });
+    res.json({
+      status: "success",
+      tasks,
+    });
+  } catch (error) {
+    res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
 });
 
 router.post("/", async (req, res) => {

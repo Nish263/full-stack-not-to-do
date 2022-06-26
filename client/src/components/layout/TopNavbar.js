@@ -26,10 +26,10 @@ export const TopNavbar = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto text-dark fw-bold">
+            <Nav className="ms-auto text-dark fw-bold  text-center">
               {user?._id ? (
                 <>
-                  hello , {user.name}
+                  {user.name} <br />{" "}
                   <Button variant="primary" onClick={handleOnSignout}>
                     {" "}
                     Sign Out

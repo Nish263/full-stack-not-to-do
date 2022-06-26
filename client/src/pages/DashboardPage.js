@@ -5,7 +5,8 @@ import { Title } from "../components/Title";
 import { FormList } from "../components/formList/FormList";
 import { TaskList } from "../components/taskList/TaskList";
 import { Col, Row, Spinner, Alert } from "react-bootstrap";
-import { postTask } from "../components/helper/axiosHelper";
+import { getTasks, postTask } from "../components/helper/axiosHelper";
+import { TotalHours } from "../components/TotalHour";
 
 export const DashboardPage = () => {
   const navigate = useNavigate();
@@ -14,13 +15,20 @@ export const DashboardPage = () => {
     message: "",
   });
   const [isloading, setIsLoading] = useState(false);
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("userList"));
     if (!user?._id) {
       navigate("/");
     }
+    fetchTasks();
   }, [navigate]);
+
+  const fetchTasks = async () => {
+    const data = await getTasks();
+    data?.status === "success" && setTasks(data.tasks);
+  };
 
   const handleOnPost = async (newTask) => {
     setIsLoading(true);
@@ -28,8 +36,14 @@ export const DashboardPage = () => {
     console.log(data);
     setIsLoading(false);
     setRes(data);
+    data.status === "success" && fetchTasks();
     // call the api
   };
+
+  const ttlTaskHr = tasks.reduce((subttl, item) => subttl + item.hr, 0);
+
+  const total = ttlTaskHr;
+
   return (
     <MainLayout>
       <Row>
@@ -47,13 +61,20 @@ export const DashboardPage = () => {
         </Row>
 
         <FormList handleOnPost={handleOnPost} />
+
         <Row className="g-5">
           <Col md="6">
-            <TaskList />
+            <h3 className="text-center mb-5 fs-2 ">TaskList</h3>
+
+            <TaskList tasks={tasks} />
           </Col>
           <Col md="6">
+            <h3 className="text-center mb-5 fs-2 ">BadList</h3>
             <TaskList />
           </Col>
+        </Row>
+        <Row>
+          <TotalHours total={total} />
         </Row>
       </Row>
     </MainLayout>

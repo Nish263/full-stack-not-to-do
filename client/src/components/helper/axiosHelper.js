@@ -5,6 +5,7 @@ const userApi = rootURL + "/users";
 const SigninApi = rootURL + "/users/login";
 const taskApi = rootURL + "/task";
 
+// /==========user apis=======
 export const postSignUp = (frmData) => {
   try {
     return axios.post(userApi, frmData);
@@ -33,10 +34,31 @@ export const postSignIn = (frmData) => {
   }
 };
 
+// =================task apis=========
 export const postTask = async (frmData) => {
   try {
     const user = JSON.parse(sessionStorage.getItem("userList"));
     const { data } = await axios.post(taskApi, frmData, {
+      headers: {
+        authorization: user._id,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log("error");
+    return {
+      data: {
+        status: "error",
+        message: error.message,
+      },
+    };
+  }
+};
+
+export const getTasks = async () => {
+  try {
+    const user = JSON.parse(sessionStorage.getItem("userList"));
+    const { data } = await axios.get(taskApi, {
       headers: {
         authorization: user._id,
       },
